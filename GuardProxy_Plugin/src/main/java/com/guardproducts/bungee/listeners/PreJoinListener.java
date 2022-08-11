@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.guardproducts.api.data.CacheManager;
 import com.guardproducts.api.data.WhitelistManager;
+import com.guardproducts.bungee.BungeePlugin;
 import net.md_5.bungee.api.event.PreLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -23,12 +24,12 @@ public class PreJoinListener implements Listener {
     private HttpClient client;
     @Inject
     private Logger logger;
-
     @Inject
     private CacheManager cacheManager;
-
     @Inject
     private WhitelistManager whitelistManager;
+    @Inject
+    private BungeePlugin plugin;
 
     private String kickMessage;
     private String licenseKey;
@@ -56,6 +57,7 @@ public class PreJoinListener implements Listener {
             return;
         }
         try {
+            e.registerIntent(plugin);
             HttpGet request = new HttpGet("http://api.mcguard.pl:8080/check?ip=" + ip + "&license=" + this.licenseKey);
             final HttpResponse httpResponse = client.execute(request);
             final int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -64,6 +66,7 @@ public class PreJoinListener implements Listener {
                 final String content = EntityUtils.toString(entity);
                 if(content == null) {
                     logger.log(Level.INFO, "API returned empty response for IP: " + ip);
+                    e.completeIntent(this.plugin);
                     return;
                 }
                 boolean isProxy = content.equalsIgnoreCase("true");
@@ -71,8 +74,10 @@ public class PreJoinListener implements Listener {
                 if(isProxy) {
                     e.setCancelReason(this.kickMessage);
                     e.setCancelled(true);
+                    e.completeIntent(this.plugin);
                     return;
                 }
+                e.completeIntent(this.plugin);
             } else {
                 logger.log(Level.INFO, "API returned status code - " + statusCode + " can't check IP address!");
             }
