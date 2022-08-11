@@ -1,0 +1,4 @@
+name: GuardProxy
+version: 1.0
+author: TheEasyPeasy
+main: com.guardproducts.bungee.BungeePlugin

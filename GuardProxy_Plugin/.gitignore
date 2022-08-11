@@ -1,0 +1,7 @@
+.idea
+GuardProxy_Plugin.iml
+.classpath
+.project
+.settings/
+target/
+/target/**

@@ -1,0 +1,6 @@
+wladded-message: "Address added to whitelist correctly"
+wlremoved-message: "Address remove from whitelist correctly"
+wlexists-message: "Address exists in whitelist!"
+wlnoexists-message: "Address do not exists in wihtelist!"
+kick-message: "Your ip is not allowed!"
+license-key: "license-key"
