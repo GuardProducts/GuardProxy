@@ -9,12 +9,14 @@ import net.md_5.bungee.api.plugin.PluginManager;
 
 public class BungeeListenerInitializer implements Initializer {
 
-    @Inject
-    private Plugin plugin;
+    private final Plugin plugin;
+    private final PluginManager pluginManager;
 
     @Inject
-    private PluginManager pluginManager;
-
+    public BungeeListenerInitializer(Plugin plugin, PluginManager pluginManager) {
+        this.plugin = plugin;
+        this.pluginManager = pluginManager;
+    }
 
     @Override
     public void init(Injector injector) {

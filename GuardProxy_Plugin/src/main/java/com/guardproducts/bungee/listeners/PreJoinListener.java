@@ -8,6 +8,7 @@ import com.guardproducts.api.data.WhitelistManager;
 import com.guardproducts.bungee.BungeePlugin;
 import net.md_5.bungee.api.event.PreLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,7 +30,7 @@ public class PreJoinListener implements Listener {
     @Inject
     private WhitelistManager whitelistManager;
     @Inject
-    private BungeePlugin plugin;
+    private Plugin plugin;
 
     private String kickMessage;
     private String licenseKey;
