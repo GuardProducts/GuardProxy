@@ -52,9 +52,12 @@ public class PreJoinListener implements Listener {
         if(whitelistManager.isWhitelisted(ip)) {
             return;
         }
-        if(cacheManager.isCached(ip) && cacheManager.isDisallowedInCache(ip)) {
-            e.setCancelReason(this.kickMessage);
-            e.setCancelled(true);
+        if(cacheManager.isCached(ip)) {
+            if(cacheManager.isDisallowedInCache(ip)) {
+                e.setCancelReason(this.kickMessage);
+                e.setCancelled(true);
+                return;
+            }
             return;
         }
         try {

@@ -16,8 +16,8 @@ public class CacheManager {
     }
 
     public boolean isDisallowedInCache(final String address) {
-        final Boolean allowed = cachedAddresses.getIfPresent(address);
-        return allowed != null && !allowed;
+        final Boolean disAllowed = cachedAddresses.getIfPresent(address);
+        return disAllowed != null && disAllowed;
     }
 
 
